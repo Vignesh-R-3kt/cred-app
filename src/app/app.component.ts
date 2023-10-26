@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
   pushEmptyOptionData(): void {
     const newOption = {
-      question: "untitled",
+      question: "Question",
       type: "options",
       edit_question: false,
       answers: []
@@ -40,26 +40,28 @@ export class AppComponent implements OnInit {
 
     this.list_contents.push(newOption);
     this.http.sendNewBlockData(newOption).subscribe((res: any) => {
-      this.fetchServerData()
+      this.fetchServerData();
     })
   }
 
   pushEmptyTextData(): void {
     const newText = {
-      question: "untitled",
+      question: "Question",
       type: "text",
       edit_question: false,
       answers: []
     };
 
     this.list_contents.push(newText);
-    this.http.sendNewBlockData(newText).subscribe((res: any) => { })
+    this.http.sendNewBlockData(newText).subscribe((res: any) => {
+      this.fetchServerData();
+    })
   }
 
   pushExtraOptionsAnswer(index: number, id: number): void {
     this.list_contents[index].answers.push({
-      code: "untitled",
-      answer: "untitled",
+      code: "answer",
+      answer: "answer",
       edit_answer: false
     });
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
@@ -70,7 +72,7 @@ export class AppComponent implements OnInit {
 
   pushExtraTextAnswer(index: number, id: number): void {
     this.list_contents[index].answers.push({
-      answer: "untitled",
+      answer: "answer",
       edit_answer: false
     });
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
