@@ -1,0 +1,258 @@
+.hero-title-wrapper {
+  margin: 12px 0 22px 0;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 6px;
+
+  h1 {
+    text-transform: capitalize;
+    text-align: left;
+    color: #0f586a;
+    font-size: 24px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+    font-weight: 400;
+  }
+}
+
+.container {
+  padding: 0 32px;
+  width: 100%;
+
+  .wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    overflow: auto;
+
+    .table-container {
+      background: #ffffff;
+      width: 100%;
+      overflow-x: auto;
+      padding: 24px 48px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+      border-radius: 6px;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+
+        tbody.options-table {
+          tr {
+            &:first-child {
+              background: #44586c !important;
+            }
+          }
+        }
+
+        tbody {
+          background: #ffffff;
+
+          &::after {
+            content: "";
+            display: block;
+            height: 18px;
+            background: #ffffff;
+          }
+
+          tr {
+            &:first-child {
+              background: #0b608b;
+            }
+
+            &:last-child {
+              td {
+                padding: 8px 24px;
+              }
+            }
+
+            td {
+              border: 1px solid #cccccc;
+              border-collapse: collapse;
+              padding: 4px 14px;
+              vertical-align: middle;
+              font-size: 14px;
+              font-weight: 600;
+
+              .add-new-answer-btn {
+                font-size: 12px;
+                padding: 4px 18px;
+                height: unset;
+                color: #ffffff !important;
+              }
+
+              .question-title-wrapper {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px;
+
+                p {
+                  font-weight: 700;
+                  font-size: 18px;
+                  color: #ffffff;
+                }
+
+                .question-edit-btn {
+                  padding: 2px 4px 2px 4px;
+                  min-width: unset;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: none;
+                  border: none;
+                  border: 1px solid #ffffff;
+                  border-radius: 4px;
+                  gap: 4px;
+
+                  mat-icon {
+                    font-size: 14px;
+                    color: #ffffff;
+                    line-height: 16px;
+                    height: unset;
+                    width: unset;
+                  }
+
+                  &:hover {
+                    background: #ffffff;
+
+                    mat-icon {
+                      color: #000000;
+                    }
+                  }
+                }
+
+                input {
+                  font-size: 16px;
+                  padding: 4px 8px;
+                  border: none;
+                  border-radius: 4px;
+                  width: 100%;
+                }
+              }
+
+              .delete-btn-wrapper {
+                display: flex;
+                justify-content: flex-end;
+                padding-right: 24px;
+
+                .delete-btn {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: none;
+                  border: none;
+                  border: 1px solid #ffffff;
+                  border-radius: 4px;
+                  padding: 4px 6px;
+                  transition: all 0.2s ease;
+
+                  mat-icon {
+                    height: unset;
+                    font-size: 18px;
+                    line-height: 18px;
+                    color: #ffffff;
+                    width: unset;
+                    height: unset;
+                  }
+
+                  &:hover {
+                    background: #ffffff;
+
+                    mat-icon {
+                      color: #000000;
+                    }
+                  }
+                }
+              }
+
+              .actions-btns-wrapper {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                justify-content: center;
+
+                button {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: none;
+                  border: none;
+                  border-radius: 3px;
+                  height: 20px;
+                  color: #ffffff;
+                  padding: 2px 6px;
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+
+                  mat-icon {
+                    font-size: 14px;
+                    line-height: 14px;
+                    height: unset;
+                    width: unset;
+                  }
+
+                  &.edit-row-btn {
+                    border: 1px solid #0581cf;
+                    background: #0581cf;
+                  }
+
+                  &.delete-row-btn {
+                    border: 1px solid #e44c3c;
+                    background: #e44c3c;
+                  }
+
+                  &:hover {
+                    filter: saturate(2);
+                  }
+                }
+              }
+
+              input {
+                padding: 8px 12px;
+                width: 100%;
+                border-radius: 4px;
+                font-size: 14px;
+                border: 1px solid #cccccc;
+              }
+
+              .sl-num {
+                font-size: 20px;
+                margin-right: 4px;
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+
+      .add-new-btn-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+
+        .add-new-btn,
+        .save-btn {
+          margin-top: 12px;
+          color: #ffffff !important;
+          font-size: 16px;
+          min-width: 200px;
+          background: #0f586a;
+        }
+
+        .options-input-btn {
+          background: #44586c !important;
+        }
+
+        .text-input-btn {
+          background: #0b608b !important;
+        }
+      }
+    }
+  }
+}

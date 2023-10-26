@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="wrapper">
+        <div class="table-container">
+            <div class="hero-title-wrapper">
+                <h1>functional requirement questionnaire</h1>
+            </div>
+            <table>
+                <tbody *ngFor="let body of list_contents, let index = index"
+                    [ngClass]="body.type === 'options' ? 'options-table' : ''">
+                    <tr class="question-ttile">
+                        <td colspan="2">
+                            <div class="question-title-wrapper">
+                                <h4 class="sl-num">{{ index + 1 }}</h4>
+                                <p *ngIf="!body.edit_question">{{ body.question }}</p>
+                                <input type="text" placeholder="Enter Your Question" *ngIf="body.edit_question"
+                                    [(ngModel)]="body.question" class="editor-ele"
+                                    (blur)="updateInputData(index, body.id)">
+                                <button class="question-edit-btn editor-ele" title="edit"
+                                    (click)="editQuestionTitle(index)" *ngIf="!body.edit_question">
+                                    <mat-icon class="editor-ele">edit</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">
+                            <div class="delete-btn-wrapper">
+                                <button class="delete-btn" title="delete-card" (click)="deleteCard(index, body.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let ele of body.answers, let ansIndex = index;">
+                        <td [width]="body.type === 'options' ? '20%':'85%'" [colSpan]="body.type === 'options' ? 1:2">
+                            <span *ngIf="!ele.edit_answer">{{ body.type === 'options' ? ele.code : ele.answer }}</span>
+                            <input *ngIf="ele.edit_answer && body.type === 'options'" type="text" class="editor-ele"
+                                placeholder="Enter Text" [(ngModel)]="ele.code"
+                                (blur)="updateInputData(index, body.id)">
+                            <input *ngIf="ele.edit_answer && body.type === 'text'" type="text" class="editor-ele"
+                                placeholder="Enter Text" [(ngModel)]="ele.answer"
+                                (blur)="updateInputData(index, body.id)">
+                        </td>
+                        <td width="65%" *ngIf="body.type === 'options'">
+                            <span *ngIf="!ele.edit_answer">{{ ele.answer }}</span>
+                            <input *ngIf="ele.edit_answer" type="text" class="editor-ele" placeholder="Enter Text"
+                                [(ngModel)]="ele.answer" (blur)="updateInputData(index, body.id)">
+                        </td>
+                        <td width="15%" style="text-align: center;">
+                            <div class="actions-btns-wrapper">
+                                <button title="edit-row" class="editor-ele edit-row-btn" *ngIf="!ele.edit_answer"
+                                    (click)="editRow(index,ansIndex)">
+                                    <mat-icon class="editor-ele">edit</mat-icon>
+                                    <span class="editor-ele">Edit</span>
+                                </button>
+                                <button title="delete-row" class="editor-ele delete-row-btn"
+                                    (click)="deleteRow(index, ansIndex, body.id)" title="delete-row">
+                                    <mat-icon class="editor-ele">delete</mat-icon>
+                                    <span class="editor-ele">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" *ngIf="body.type === 'options'">
+                            <button class="add-new-answer-btn" [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }" title="add new row" mat-raised-button
+                                (click)="pushExtraOptionsAnswer(index, body.id)">add</button>
+                        </td>
+                        <td colspan="3" *ngIf="body.type === 'text'">
+                            <button class="add-new-answer-btn" [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }" title="add new row" mat-raised-button
+                                (click)="pushExtraTextAnswer(index, body.id)">add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="add-new-btn-wrapper">
+                <button class="add-new-btn options-input-btn" title="add-new" mat-raised-button
+                    (click)="pushEmptyOptionData()">
+                    <mat-icon>add</mat-icon> Options
+                </button>
+                <button class="add-new-btn text-input-btn" title="add-new" mat-raised-button (click)="pushEmptyTextData()">
+                    <mat-icon>add</mat-icon> Text Field
+                </button>
+                <button class="save-btn" title="save" mat-raised-button *ngIf="list_contents.length"
+                    (click)="saveFormData()">Save Data</button>
+            </div>
+        </div>
+    </div>
+</div>
