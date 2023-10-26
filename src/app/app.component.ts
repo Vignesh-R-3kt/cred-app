@@ -21,17 +21,11 @@ export class AppComponent implements OnInit {
 
   fetchServerData(): void {
     this.http.fetchAllData().subscribe((res: any) => {
-      const mappedData: any = [];
-      res.forEach((ele: any) => {
-        ele.edit_question = false;
-        ele.answers.forEach((ans: any) => {
-          ans.edit_answer = false;
-          return ans
-        });
-
-        mappedData.push(ele);
+      const mappedData = res.map((ele: any) => {
+        const updatedEle = { ...ele, edit_question: false };
+        const updatedAnswers = ele.answers.map((ans: any) => ({ ...ans, edit_answer: false }));
+        return { ...updatedEle, answers: updatedAnswers };
       });
-
       this.list_contents = mappedData;
     })
   }
@@ -68,7 +62,10 @@ export class AppComponent implements OnInit {
       answer: "untitled",
       edit_answer: false
     });
-    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => { });
+    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
+      this.disableInputFiels();
+      this.list_contents[index].answers[this.list_contents[index].answers.length - 1].edit_answer = true;
+    });
   }
 
   pushExtraTextAnswer(index: number, id: number): void {
@@ -76,7 +73,10 @@ export class AppComponent implements OnInit {
       answer: "untitled",
       edit_answer: false
     });
-    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => { });
+    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
+      this.disableInputFiels();
+      this.list_contents[index].answers[this.list_contents[index].answers.length - 1].edit_answer = true;
+    });
   }
 
   deleteCard(index: number, id: number) {

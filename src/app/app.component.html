@@ -61,12 +61,18 @@
                     </tr>
                     <tr>
                         <td colspan="3" *ngIf="body.type === 'options'">
-                            <button class="add-new-answer-btn" [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }" title="add new row" mat-raised-button
-                                (click)="pushExtraOptionsAnswer(index, body.id)">add</button>
+                            <button class="add-new-answer-btn"
+                                [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }"
+                                title="add new row" mat-raised-button (click)="pushExtraOptionsAnswer(index, body.id)">
+                                <mat-icon>add</mat-icon>
+                            </button>
                         </td>
                         <td colspan="3" *ngIf="body.type === 'text'">
-                            <button class="add-new-answer-btn" [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }" title="add new row" mat-raised-button
-                                (click)="pushExtraTextAnswer(index, body.id)">add</button>
+                            <button class="add-new-answer-btn"
+                                [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }"
+                                title="add new row" mat-raised-button (click)="pushExtraTextAnswer(index, body.id)">
+                                <mat-icon>add</mat-icon>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -77,7 +83,8 @@
                     (click)="pushEmptyOptionData()">
                     <mat-icon>add</mat-icon> Options
                 </button>
-                <button class="add-new-btn text-input-btn" title="add-new" mat-raised-button (click)="pushEmptyTextData()">
+                <button class="add-new-btn text-input-btn" title="add-new" mat-raised-button
+                    (click)="pushEmptyTextData()">
                     <mat-icon>add</mat-icon> Text Field
                 </button>
                 <button class="save-btn" title="save" mat-raised-button *ngIf="list_contents.length"
