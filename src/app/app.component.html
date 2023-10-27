@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="table-container">
             <div class="hero-title-wrapper">
-                <h1>functional requirement questionnaire</h1>
+                <h1>functional requirement questionnaire :</h1>
             </div>
             <table>
                 <tbody *ngFor="let body of list_contents, let index = index"
@@ -63,14 +63,14 @@
                         <td colspan="3" *ngIf="body.type === 'options'">
                             <button class="add-new-answer-btn"
                                 [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }"
-                                title="add new row" mat-raised-button (click)="pushExtraOptionsAnswer(index, body.id)">
+                                title="add new row" mat-raised-button (click)="pushExtraAnswer(index, body.id, true)">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </td>
                         <td colspan="3" *ngIf="body.type === 'text'">
                             <button class="add-new-answer-btn"
                                 [ngStyle]="{'background': body.type === 'options' ? '#44586C' : '#0B608B' }"
-                                title="add new row" mat-raised-button (click)="pushExtraTextAnswer(index, body.id)">
+                                title="add new row" mat-raised-button (click)="pushExtraAnswer(index, body.id, false)">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </td>
@@ -80,11 +80,11 @@
 
             <div class="add-new-btn-wrapper">
                 <button class="add-new-btn options-input-btn" title="add-new" mat-raised-button
-                    (click)="pushEmptyOptionData()">
+                    (click)="pushEmptyData('options')">
                     <mat-icon>add</mat-icon> Options
                 </button>
                 <button class="add-new-btn text-input-btn" title="add-new" mat-raised-button
-                    (click)="pushEmptyTextData()">
+                    (click)="pushEmptyData('text')">
                     <mat-icon>add</mat-icon> Text Field
                 </button>
                 <button class="save-btn" title="save" mat-raised-button *ngIf="list_contents.length"

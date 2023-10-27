@@ -30,63 +30,39 @@ export class AppComponent implements OnInit {
     })
   }
 
-  pushEmptyOptionData(): void {
-    const newOption = {
+  pushEmptyData(type: string): void {
+    const newData = {
       question: "Question",
-      type: "options",
+      type: type,
       edit_question: false,
-      answers: []
+      answers: [],
     };
 
-    this.list_contents.push(newOption);
-    this.http.sendNewBlockData(newOption).subscribe((res: any) => {
+    this.list_contents.push(newData);
+    this.http.sendNewBlockData(newData).subscribe((res: any) => {
       this.fetchServerData();
-    })
-  }
-
-  pushEmptyTextData(): void {
-    const newText = {
-      question: "Question",
-      type: "text",
-      edit_question: false,
-      answers: []
-    };
-
-    this.list_contents.push(newText);
-    this.http.sendNewBlockData(newText).subscribe((res: any) => {
-      this.fetchServerData();
-    })
-  }
-
-  pushExtraOptionsAnswer(index: number, id: number): void {
-    this.list_contents[index].answers.push({
-      code: "answer",
-      answer: "answer",
-      edit_answer: false
     });
+  }
+
+  pushExtraAnswer(index: number, id: number, isOptions: boolean): void {
+    const newAnswer: any = isOptions
+      ? { code: "answer", answer: "answer", edit_answer: false }
+      : { answer: "answer", edit_answer: false };
+
+    this.list_contents[index].answers.push(newAnswer);
+
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
       this.disableInputFiels();
       this.list_contents[index].answers[this.list_contents[index].answers.length - 1].edit_answer = true;
     });
   }
 
-  pushExtraTextAnswer(index: number, id: number): void {
-    this.list_contents[index].answers.push({
-      answer: "answer",
-      edit_answer: false
-    });
-    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
-      this.disableInputFiels();
-      this.list_contents[index].answers[this.list_contents[index].answers.length - 1].edit_answer = true;
-    });
-  }
-
-  deleteCard(index: number, id: number) {
+  deleteCard(index: number, id: number): void {
     this.list_contents.splice(index, 1);
     this.http.deleteCard(id).subscribe((res: any) => { })
   }
 
-  deleteRow(index: number, rowIndex: number, id: number) {
+  deleteRow(index: number, rowIndex: number, id: number): void {
     this.list_contents[index].answers.splice(rowIndex, 1);
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => { })
   }
@@ -111,7 +87,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  updateInputData(index: number, id: number) {
+  updateInputData(index: number, id: number): void {
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
     })
   }
