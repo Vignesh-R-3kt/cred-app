@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
 
   fetchServerData(): void {
     this.http.fetchAllData().subscribe((res: any) => {
-      const mappedData = res.map((ele: any) => {
+      const mappedData = res.map((ele: any) => {        
         const updatedEle = { ...ele, edit_question: false };
         const updatedAnswers = ele.answers.map((ans: any) => ({ ...ans, edit_answer: false }));
         return { ...updatedEle, answers: updatedAnswers };
       });
-      this.list_contents = mappedData;
+      this.list_contents = mappedData.sort((a:any,b:any) => a.id - b.id);
     })
   }
 

@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private endURL: string = "http://localhost:3000/userData";
+  // private endURL: string = "http://localhost:3000/userData";
+  private endURL: string = "http://localhost:8080/question";
   private header: any = { headers: { 'Content-Type': 'application/json' } };
 
   constructor(private http: HttpClient) { }
@@ -21,10 +22,10 @@ export class ApiService {
   }
 
   patchNewData(data: any, id: number): Observable<any> {
-    return this.http.put(`${this.endURL}/${id}`, JSON.stringify(data), this.header)
+    return this.http.put(`${this.endURL}/update?id=${id}`, JSON.stringify(data), this.header)
   }
 
   deleteCard(id: number): Observable<any> {
-    return this.http.delete(`${this.endURL}/${id}`);
+    return this.http.delete(`${this.endURL}/delete?id=${id}`);
   }
 }
