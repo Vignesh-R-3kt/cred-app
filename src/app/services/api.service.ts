@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  // private endURL: string = "http://localhost:3000/userData";
   private endURL: string = "http://localhost:8080/question";
   private header: any = { headers: { 'Content-Type': 'application/json' } };
 
