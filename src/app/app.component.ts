@@ -1,3 +1,4 @@
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
 
@@ -10,10 +11,12 @@ import { ApiService } from './services/api.service';
   },
 })
 export class AppComponent implements OnInit {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   list_contents: any[] = []
 
-  constructor(private http: ApiService) { }
+  constructor(private http: ApiService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.fetchServerData();
@@ -21,12 +24,18 @@ export class AppComponent implements OnInit {
 
   fetchServerData(): void {
     this.http.fetchAllData().subscribe((res: any) => {
-      const mappedData = res.map((ele: any) => {        
+      const mappedData = res.map((ele: any) => {
         const updatedEle = { ...ele, edit_question: false };
         const updatedAnswers = ele.answers.map((ans: any) => ({ ...ans, edit_answer: false }));
         return { ...updatedEle, answers: updatedAnswers };
       });
-      this.list_contents = mappedData.sort((a:any,b:any) => a.id - b.id);
+      this.list_contents = mappedData.sort((a: any, b: any) => a.id - b.id);
+    }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
     })
   }
 
@@ -41,6 +50,12 @@ export class AppComponent implements OnInit {
     this.list_contents.push(newData);
     this.http.sendNewBlockData(newData).subscribe((res: any) => {
       this.fetchServerData();
+    }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
     });
   }
 
@@ -54,17 +69,35 @@ export class AppComponent implements OnInit {
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
       this.disableInputFiels();
       this.list_contents[index].answers[this.list_contents[index].answers.length - 1].edit_answer = true;
+    }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
     });
   }
 
   deleteCard(index: number, id: number): void {
     this.list_contents.splice(index, 1);
-    this.http.deleteCard(id).subscribe((res: any) => { })
+    this.http.deleteCard(id).subscribe((res: any) => { }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
+    })
   }
 
   deleteRow(index: number, rowIndex: number, id: number): void {
     this.list_contents[index].answers.splice(rowIndex, 1);
-    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => { })
+    this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => { }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
+    })
   }
 
   editQuestionTitle(index: number): void {
@@ -89,6 +122,12 @@ export class AppComponent implements OnInit {
 
   updateInputData(index: number, id: number): void {
     this.http.patchNewData(this.list_contents[index], id).subscribe((res: any) => {
+    }, (error: any) => {
+      this.snackbar.open('Something Went Wrong', 'dismiss', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 2500
+      });
     })
   }
 

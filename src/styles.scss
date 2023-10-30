@@ -22,3 +22,17 @@ input {
   outline: transparent;
   padding-left: 18px !important;
 }
+
+.mat-mdc-simple-snack-bar {
+  background: #f1463e;
+  border-radius: 3px 0 0 3px;
+
+  .mat-mdc-snack-bar-label {
+    font-weight: 500 !important;
+    color: #ffffff !important;
+  }
+
+  .mdc-button__label {
+    color: #ffffff;
+  }
+}
